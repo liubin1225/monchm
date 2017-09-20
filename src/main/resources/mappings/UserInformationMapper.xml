@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warchm.modules.sys.dao.UserInformationDao">
+    <resultMap id="BaseResultMap" type="com.warchm.modules.sys.entity.UserInformation">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="mobile_number" jdbcType="VARCHAR" property="mobileNumber"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="birth_year" jdbcType="INTEGER" property="birthYear"/>
+        <result column="major1" jdbcType="VARCHAR" property="major1"/>
+        <result column="major2" jdbcType="VARCHAR" property="major2"/>
+        <result column="major3" jdbcType="VARCHAR" property="major3"/>
+        <result column="register_date" jdbcType="TIMESTAMP" property="registerDate"/>
+        <result column="activation_code" jdbcType="VARCHAR" property="activationCode"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="public_information" jdbcType="INTEGER" property="publicInformation"/>
+        <result column="welcome_message" jdbcType="VARCHAR" property="welcomeMessage"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_id, user_name, mobile_number, email, password, real_name, company, title, birth_year, 
+    major1, major2, major3, register_date, activation_code, status, role_id, public_information, 
+    welcome_message
+  </sql>
+
+    <!--根据email查询-->
+    <select id="getUserByEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_information
+        WHERE email = #{userName,jdbcType=VARCHAR}
+    </select>
+    <!--根据手机号查询-->
+    <select id="getUserByMobile" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_information
+        WHERE mobile_number = #{userName,jdbcType=VARCHAR}
+    </select>
+    <!--根据登录名查询-->
+    <select id="getUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_information
+        WHERE user_name = #{userName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_information
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from user_information
+        where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.warchm.modules.sys.entity.UserInformation">
+    insert into user_information (user_id, user_name, mobile_number, 
+      email, password, real_name, 
+      company, title, birth_year, 
+      major1, major2, major3, 
+      register_date, activation_code, status, 
+      role_id, public_information, welcome_message
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{mobileNumber,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{birthYear,jdbcType=INTEGER}, 
+      #{major1,jdbcType=VARCHAR}, #{major2,jdbcType=VARCHAR}, #{major3,jdbcType=VARCHAR}, 
+      #{registerDate,jdbcType=TIMESTAMP}, #{activationCode,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{roleId,jdbcType=INTEGER}, #{publicInformation,jdbcType=INTEGER}, #{welcomeMessage,jdbcType=VARCHAR}
+      )
+  </insert>
+</mapper>
